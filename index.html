@@ -1,0 +1,110 @@
+Code
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ungkapkan Cinta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #game, #question1, #question2 {
+            display: none;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #noButton {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Selamat datang!</h1>
+    <button id="startButton">Mulai Permainan</button>
+
+    <div id="game">
+        <h2>Tebak Angka (1-10)</h2>
+        <p>Anda memiliki 3 kesempatan untuk menebak angka. Coba tebak!</p>
+        <input type="number" id="guess" min="1" max="10">
+        <button id="submitGuess">Kirim Tebakan</button>
+        <p id="feedback"></p>
+    </div>
+
+    <div id="question1">
+        <h2>Aku boleh tanya gak?</h2>
+        <button id="yesButton">Iya</button>
+        <button id="noButton">Tidak</button>
+    </div>
+
+    <div id="question2">
+        <h2>Aku mau tanya sekali lagi ke zaza, tapi sebelumnya maaf ya kalo kesannya aku memaksa. Kira-kira boleh gak aku jadi pacar zaza?</h2>
+        <button id="yesButton2">Ya</button>
+        <button id="noButton2">Tidak</button>
+    </div>
+
+    <script>
+        let attempts = 0;
+        const correctAnswer = 7;
+
+        document.getElementById('startButton').onclick = function() {
+            document.getElementById('startButton').style.display = 'none';
+            document.getElementById('game').style.display = 'block';
+        };
+      document.getElementById('submitGuess').onclick = function() {
+            const guess = parseInt(document.getElementById('guess').value);
+            attempts++;
+
+            if (guess === correctAnswer) {
+                document.getElementById('feedback').innerText = "Terimakasih sudah menjawab dengan angka 7, kenapa angka 7? Karena kamu adalah tujuanku.";
+                document.getElementById('game').style.display = 'none';
+                showQuestion1();
+            } else if (attempts < 3) {
+                let hint = guess < 5 ? "Coba angka lain yang lebih dekat dengan angka 5." : "Coba angka lain yang lebih jauh dari angka 5.";
+                document.getElementById('feedback').innerText = hint;
+            } else {
+                document.getElementById('feedback').innerText = "Aku bantu ya jawabannya itu 7 zaza😉";
+                document.getElementById('guess').disabled = true;
+                document.getElementById('submitGuess').disabled = true;
+                showQuestion1();
+            }
+        };
+
+        function showQuestion1() {
+            document.getElementById('question1').style.display = 'block';
+            document.getElementById('game').style.display = 'none';
+        }
+
+        document.getElementById('yesButton').onclick = function() {
+            document.getElementById('question1').style.display = 'none';
+            showQuestion2();
+        };
+      document.getElementById('noButton').onclick = function() {
+            const noButton = document.getElementById('noButton');
+            noButton.style.position = 'absolute';
+            noButton.style.left = Math.random() * 80 + 'vw';
+            noButton.style.top = Math.random() * 80 + 'vh';
+        };
+
+        function showQuestion2() {
+            document.getElementById('question2').style.display = 'block';
+        }
+
+        document.getElementById('yesButton2').onclick = function() {
+            alert("Yay! Senang mendengarnya!");
+        };
+
+        document.getElementById('noButton2').onclick = function() {
+            alert("Oh, tidak apa-apa. Semoga kita bisa tetap berteman!");
+        };
+    </script>
+
+</body>
+</html>
